@@ -1,5 +1,26 @@
-const router = require("express").Router();
+import express from "express";
+import {
+  createTask,
+  manageTask,
+  getTask,
+  deleteTask,
+} from "../Controller/TaskController.js";
+import { userAuthentication } from "../Middleware/authentication.js";
+import { checkTaskSchema } from "../Middleware/taskValidation.js";
 
-router.post("/addTask", addRegisterData);
+const taskRouter = express.Router();
 
-export { TaskRoute };
+taskRouter.post(
+  "/create-task",
+  checkTaskSchema,
+  userAuthentication,
+  createTask
+);
+
+taskRouter.get("/get-task", userAuthentication, getTask);
+
+taskRouter.put("/update-task/:id", userAuthentication, manageTask);
+
+taskRouter.delete("/delete-task/:id", userAuthentication, deleteTask);
+
+export { taskRouter };

@@ -26,6 +26,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  isVerify: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 userSchema.statics.checkUserVerification = async (query) => {

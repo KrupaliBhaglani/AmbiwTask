@@ -1,5 +1,10 @@
-const router = require("express").Router();
+import express from "express";
+import { createUserData, login } from "../Controller/UserController.js";
+import { checkUserData } from "../Middleware/userValidation.js";
 
-router.post("/addUser", addRegisterData);
+const userRouter = express.Router();
 
-export { UserRoute };
+userRouter.post("/register-user", checkUserData, createUserData);
+userRouter.post("/login", login);
+
+export { userRouter };

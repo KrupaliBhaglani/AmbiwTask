@@ -1,27 +1,28 @@
-// velidation
-import Joi from "joi";
+import { verifyUser } from "../Service/UserService.js";
 
-function checkAccountSchema(req, res, next) {
-  const schema = Joi.object({
-    FirstName: Joi.string().required(),
-    Email: Joi.string().email().required(),
-    LastName: Joi.string().required(),
-    Mobile: Joi.number().required(),
-    Password: Joi.string().required(),
-  });
-  validateRequest(req, next, schema);
-}
+async function userAuthentication(req, res, next) {
+  try {
+    var jwttoken = req.headers.authorization;
+    // Bearer Token
+    const token = jwttoken.slice(7);
 
+    if (!token)
+      return res
+        .status(401)
+        .send({ auth: false, message: "Token is not provided" });
 
-function validateRequest(req, next, schema) {
-  const { error, value } = schema.validate(req.body);
-  if (error) {
-    next(`Validation error: ${error.details.map((x) => x.message).join(", ")}`);
-  } else {
-    req.body = value;
-    next();
+    const isUserVerify = await verifyUser(token);
+    if (!isUserVerify) {
+      var error = { statusCode: 401, message: "Unauthorised Access!" };
+      throw error;
+    } else {
+      req.query = isUserVerify.id;
+      next();
+    }
+  } catch (error) {
+    res.status(400).send({ message: error.message, status: 400 });
+    console.log(error);
   }
 }
 
-// module.exports = checkAccountSchema;
-export { checkAccountSchema };
+export { userAuthentication };

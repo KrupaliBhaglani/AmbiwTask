@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import {User} from './User.js'
 mongoose.set("useCreateIndex", true);
 const Schema = mongoose.Schema;
 
@@ -21,6 +22,11 @@ const taskSchema = new Schema({
     type: String,
     required: true,
   },
+  UserId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+
 });
 
 // taskSchema.statics.checkUserVerification = async (query) => {

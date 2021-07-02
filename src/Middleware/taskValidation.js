@@ -4,9 +4,9 @@ import Joi from "joi";
 function checkTaskSchema(req, res, next) {
   const schema = Joi.object({
     Title: Joi.string().required(),
-    Description: Joi.string().email().required(),
+    Description: Joi.string().required(),
     isActive: Joi.boolean(),
-    Status: Joi.string().required().in(['plan','development','qa','done']),
+    Status: Joi.string().required(),
   });
   validateRequest(req, next, schema);
 }
