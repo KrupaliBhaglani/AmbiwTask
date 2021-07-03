@@ -22,6 +22,6 @@ app.use(bodyParser.json());
 // API routes
 app.use("/", router);
 
-app.listen(3001, function () {
+app.listen(3000, function () {
   console.log("Server is started..");
 });
