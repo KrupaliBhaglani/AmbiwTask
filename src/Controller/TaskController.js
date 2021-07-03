@@ -28,7 +28,7 @@ async function manageTask(req, res) {
       res.status(400).send({ message: "Not able to Update task", status: 400 });
     }
 
-    res.status(200).send({ message: "Sucessfully Updated", status: 200 });
+    res.status(200).send({ message: "Sucessfully Updated", status: 200, data:data });
   } catch (error) {
     res.status(400).send({ message: error.message, status: 400 });
     console.log(error);
