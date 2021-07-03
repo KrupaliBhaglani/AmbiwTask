@@ -6,7 +6,7 @@ function checkTaskSchema(req, res, next) {
     Title: Joi.string().required(),
     Description: Joi.string().required(),
     isActive: Joi.boolean(),
-    Status: Joi.string().required(),
+    Status: Joi.string(),
   });
   validateRequest(req, next, schema);
 }

@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs";
 async function createUserData(req, res) {
   try {
     req.body.Password = bcrypt.hashSync(req.body.Password);
-    const userDetails = await createUserDataService(req.body);
+    const userDetails = await createUserService(req.body);
     res
       .status(200)
       .send({ message: "Data Inserted", status: 200, userDetails });
